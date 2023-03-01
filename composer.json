@@ -1,18 +1,18 @@
 {
-    "name": "nikita/task2php",
+    "name": "artem/web2php",
     "require": {
         "ext-pdo": "*",
         "vlucas/phpdotenv": "^5.5"
     },
     "autoload": {
         "psr-4": {
-            "Nikita\\Task2php\\": "src/"
+            "Artem\\Web2php\\": "src/"
         }
     },
     "authors": [
         {
-            "name": "Nikita Nech",
-            "email": "nechit@gmail.com"
+            "name": "Artem Shahov",
+            "email": "tematema270602@gmail.com"
         }
     ]
 }
