@@ -5,29 +5,20 @@ header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-
 include_once '../src/database.php';
 include_once '../models/city.php';
 
-$DB = new Database();
-$DBGet = $DB->getConnection();
+$db = new Database();
+$dbGet = $db->getConnection();
 
-$City = new City($DBGet);
+$city = new City($DBGet);
 
+$city->id = $_POST['id'];
 
-
-
-
-$City->id = $_POST['id'];
-
-
-
-    if ($City->delete()) {
-
+    if ($city->delete()) {
         http_response_code(200);
         echo json_encode(array("message" => "Город был удален."));
     } else {
         http_response_code(503);
-
         echo json_encode(["message" => "Невозможно удалить город."]);
     }
