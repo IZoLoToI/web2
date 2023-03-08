@@ -2,44 +2,36 @@
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
-
 include_once '../src/database.php';
 include_once '../models/city.php';
 
-$DB = new Database();
-$DBGet = $DB->getConnection();
+$db = new Database();
+$dbGet = $db->getConnection();
 
-$City = new City($DBGet);
+$city = new City($DBGet);
 
+$cityGet = $city->get();
 
-$CityGet = $City->get();
+$cityGetCount = $cityGet->rowCount();
 
-$CityGetCount = $CityGet->rowCount();
+if ($cityGetCount > 0) {
 
-if ($CityGetCount > 0) {
+    $cityArray = array();
+    $cityArray["items"] = array();
 
-    $CityArray = array();
-    $CityArray["items"] = array();
-
-    while ($row = $CityGet->fetch(PDO::FETCH_ASSOC)) {
+    while ($row = $cityGet->fetch(PDO::FETCH_ASSOC)) {
 
         extract($row);
 
-        $CityItem = array(
+        $cityItem = array(
             "id" => $id,
             "name" => $name,
         );
-
-        $CityArray["items"][] = $CityItem;
-
+        $cityArray["items"][] = $cityItem;
     }
-
     http_response_code(200);
-
     echo json_encode($CityArray);
-
 } else {
     http_response_code(404);
-
     echo json_encode(["message" => "Города не найдены."]);
 }
