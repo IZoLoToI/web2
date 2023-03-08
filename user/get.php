@@ -2,47 +2,42 @@
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
-
 include_once '../src/database.php';
 include_once '../models/user.php';
 
-$DB = new Database();
-$DBC = $DB->getConnection();
+$db = new Database();
+$dbC = $db->getConnection();
 
-$User = new User($DBC);
+$user = new User($dbC);
 
+$userGet = $user->get();
 
-$UserGet = $User->get();
+$userGetCount = $userGet->rowCount();
 
-$UserGetCount = $UserGet->rowCount();
+if ($userGetCount > 0) {
 
-if ($UserGetCount > 0) {
+    $userArray = array();
+    $userArray["items"] = array();
 
-    $UserArray = array();
-    $UserArray["items"] = array();
+    while ($row = $userGet->fetch(PDO::FETCH_ASSOC)) {
 
-    while ($row = $UserGet->fetch(PDO::FETCH_ASSOC)) {
-
-        // извлекаем строку
         extract($row);
 
-        $UserItem = array(
+        $userItem = array(
             "id" => $id,
             "username" => $username,
             "idCity" => $idCity,
             "name" => $name,
         );
 
-        $UserArray["items"][] = $UserItem;
+        $userArray["items"][] = $userItem;
 
     }
-
     http_response_code(200);
 
     echo json_encode($UserArray);
 
 } else {
     http_response_code(404);
-
     echo json_encode(["message" => "Пользователи не найдены."]);
 }
