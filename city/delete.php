@@ -11,7 +11,7 @@ include_once '../models/city.php';
 $db = new Database();
 $dbGet = $db->getConnection();
 
-$city = new City($DBGet);
+$city = new City($dbGet);
 
 $city->id = $_POST['id'];
 
