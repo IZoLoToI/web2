@@ -9,7 +9,7 @@ include_once '../models/city.php';
 $db = new Database();
 $dbGet = $db->getConnection();
 
-$сity = new Сity($DBGet);
+$сity = new Сity($dbGet);
 
 if (
     !empty($_POST['name']) 
