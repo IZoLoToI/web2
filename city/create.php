@@ -7,7 +7,7 @@ include_once '../src/database.php';
 include_once '../models/city.php';
 
 $db = new Database();
-$dbGet = $DB->getConnection();
+$dbGet = $db->getConnection();
 
 $сity = new Сity($DBGet);
 
